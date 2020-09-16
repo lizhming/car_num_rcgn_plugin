@@ -1,0 +1,19 @@
+{
+  "name": "com.cardcam",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "com.cardcam",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "",
+  "license": "ISC"
+}

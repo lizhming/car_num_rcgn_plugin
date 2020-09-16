@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/Theme.AppCompat"
+    tools:context="com.cardcam.scantrans.GalleryActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:background="#00000000"
+            android:textColor="#000"
+            android:text="취소"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="갤러리"
+            android:textSize="14dp"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:paddingLeft="0dp"
+            android:gravity="center"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="0dp">
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"/>
+        <TextView
+            android:id="@+id/text_noresult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:textColor="#3d3d3d"
+            android:text="이미지가 없습니다."
+            android:visibility="invisible"/>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pgZ-tj-uyd">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6ng-S5-91L">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nDK-cd-6KZ">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="nDK-cd-6KZ" secondAttribute="height" multiplier="1:1" id="SRe-Nn-6S5"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcj-eu-INU">
+                        <rect key="frame" x="0.0" y="205" width="250" height="45"/>
+                        <color key="backgroundColor" white="1" alpha="0.097546214788732391" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="WTX-GE-XT4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nDK-cd-6KZ" secondAttribute="bottom" id="DgV-Tx-is0"/>
+                    <constraint firstItem="nDK-cd-6KZ" firstAttribute="top" secondItem="6ng-S5-91L" secondAttribute="top" id="Jzp-pf-JIQ"/>
+                    <constraint firstAttribute="bottom" secondItem="Kcj-eu-INU" secondAttribute="bottom" id="KZb-t2-Vmd"/>
+                    <constraint firstAttribute="trailing" secondItem="Kcj-eu-INU" secondAttribute="trailing" id="fgb-kK-fbX"/>
+                    <constraint firstItem="nDK-cd-6KZ" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="hZa-pO-uPj"/>
+                    <constraint firstItem="Kcj-eu-INU" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="jMk-p8-5xM"/>
+                    <constraint firstAttribute="trailing" secondItem="nDK-cd-6KZ" secondAttribute="trailing" id="r6y-DV-HNw"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="283" height="288"/>
+            <point key="canvasLocation" x="1044.9275362318842" y="52.232142857142854"/>
+        </collectionViewCell>
+    </objects>
+</document>

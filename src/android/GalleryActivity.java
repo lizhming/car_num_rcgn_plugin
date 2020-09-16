@@ -18,6 +18,7 @@ import android.widget.GridView;
 // import com.cardcam.lprdemo.R;
 
 import java.io.File;
+import java.util.Arrays;
 
 import kr.go.seoul.seoulSmartReport.R;
 
@@ -97,6 +98,7 @@ public class GalleryActivity extends AppCompatActivity {
             Log.d("Files", "FileName:" + files[i].getName());
             this.path[i] = files[i].getAbsolutePath();
         }
+        Arrays.sort(this.path);
 
         GridView gridView = findViewById(getResources().getIdentifier("gridView", "id", getPackageName()));
         GalleryAdapter adapter = new GalleryAdapter(this, this.path);

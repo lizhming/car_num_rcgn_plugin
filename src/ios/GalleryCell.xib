@@ -11,41 +11,42 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pgZ-tj-uyd">
-            <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+            <rect key="frame" x="0.0" y="0.0" width="250" height="293"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6ng-S5-91L">
-                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="6ng-S5-91L">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="293"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nDK-cd-6KZ">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nDK-cd-6KZ">
                         <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="nDK-cd-6KZ" secondAttribute="height" multiplier="1:1" id="SRe-Nn-6S5"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcj-eu-INU">
-                        <rect key="frame" x="0.0" y="205" width="250" height="45"/>
+                    <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kcj-eu-INU">
+                        <rect key="frame" x="0.0" y="249" width="250" height="44"/>
                         <color key="backgroundColor" white="1" alpha="0.097546214788732391" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="45" id="WTX-GE-XT4"/>
+                            <constraint firstAttribute="height" constant="45" id="div-YL-2kW"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="nDK-cd-6KZ" secondAttribute="bottom" id="DgV-Tx-is0"/>
+                    <constraint firstAttribute="bottom" secondItem="Kcj-eu-INU" secondAttribute="bottom" id="A97-qA-C2n"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nDK-cd-6KZ" secondAttribute="bottom" priority="250" id="DgV-Tx-is0"/>
                     <constraint firstItem="nDK-cd-6KZ" firstAttribute="top" secondItem="6ng-S5-91L" secondAttribute="top" id="Jzp-pf-JIQ"/>
-                    <constraint firstAttribute="bottom" secondItem="Kcj-eu-INU" secondAttribute="bottom" id="KZb-t2-Vmd"/>
-                    <constraint firstAttribute="trailing" secondItem="Kcj-eu-INU" secondAttribute="trailing" id="fgb-kK-fbX"/>
+                    <constraint firstItem="Kcj-eu-INU" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="Mfd-3R-VjP"/>
                     <constraint firstItem="nDK-cd-6KZ" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="hZa-pO-uPj"/>
-                    <constraint firstItem="Kcj-eu-INU" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="jMk-p8-5xM"/>
                     <constraint firstAttribute="trailing" secondItem="nDK-cd-6KZ" secondAttribute="trailing" id="r6y-DV-HNw"/>
+                    <constraint firstAttribute="trailing" secondItem="Kcj-eu-INU" secondAttribute="trailing" id="rFH-Yc-N5n"/>
+                    <constraint firstItem="Kcj-eu-INU" firstAttribute="top" secondItem="nDK-cd-6KZ" secondAttribute="bottom" id="zWB-pN-V2R"/>
                 </constraints>
             </collectionViewCellContentView>
-            <size key="customSize" width="283" height="288"/>
-            <point key="canvasLocation" x="1044.9275362318842" y="52.232142857142854"/>
+            <size key="customSize" width="283" height="331"/>
+            <point key="canvasLocation" x="1044.9275362318842" y="65.959821428571431"/>
         </collectionViewCell>
     </objects>
 </document>

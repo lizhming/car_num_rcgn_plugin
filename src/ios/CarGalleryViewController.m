@@ -52,6 +52,9 @@
         [recipeImages addObject: [NSString stringWithFormat:@"%@/%@", imagePath, [directoryContent objectAtIndex:count]]];
         
     }
+    recipeImages = [recipeImages sortedArrayUsingComparator:^(id a, id b) {
+        return [a compare:b];
+    }];
 //    recipeImages = [NSArray arrayWithObjects:@"angry_birds_cake.jpg", @"creme_brelee.jpg", @"egg_benedict.jpg", @"full_breakfast.jpg", @"green_tea.jpg", @"ham_and_cheese_panini.jpg", @"ham_and_egg_sandwich.jpg", @"hamburger.jpg", @"instant_noodle_with_egg.jpg", @"japanese_noodle_with_pork.jpg", @"mushroom_risotto.jpg", @"noodle_with_bbq_pork.jpg", @"starbucks_coffee.jpg", @"thai_shrimp_cake.jpg", @"vegetable_curry.jpg", @"white_chocolate_donut.jpg", nil];
     [collectionView registerNib:[UINib nibWithNibName:@"GalleryCell" bundle:nil] forCellWithReuseIdentifier:@"GalleryCell"];
     
@@ -96,7 +99,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(CGRectGetWidth(collectionView.frame) / 3, CGRectGetWidth(collectionView.frame) / 3);
+    return CGSizeMake(CGRectGetWidth(collectionView.frame) / 3, CGRectGetWidth(collectionView.frame) / 3 + 45);
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {

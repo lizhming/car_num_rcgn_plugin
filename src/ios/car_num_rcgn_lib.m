@@ -158,7 +158,7 @@
         // 이미지 저장
         if (![path containsString:imagePath]) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyy-dd-MM HH:mm:ss"];
+            [formatter setDateFormat:@"yyyy-dd-MM HHmmss"];
 
             NSDate *currentDate = [NSDate date];
             NSString *dateString = [formatter stringFromDate:currentDate];

@@ -51,10 +51,35 @@ public  class CarNumRcgn {
    */ 
   public final	static native int GetFocusValueYuv420(byte[] yuvdata, int width, int height, int mx,int my,int mode);
 
- 
+
+
+  /*
+   * bitmapCarNumDetect
+   *
+   * 차량번호 인식 전 번호판 존재여부 스캐닝.
+   *
+   * input :
+   *   bitmap32: input 이미지
+   *   cropArea[0]: 검출영역 left
+   *   cropArea[1]: 검출영역 top
+   *   cropArea[2]: 검출영역 right
+   *   cropArea[3]: 검출영역 bottom
+   *   cropArea[]={0,0,0,0} 이면 전체 영역
+   *
+   * return :
+   *   번호판으로 생각되는 사각형의 높이
+   *    0 = 찾지 못함.
+   *    1~nn = 번호판으로 추측되는 사각형을 찾았으나 인식하기에는 너무 작음.
+   *    NN = 인식 가능한 충분한 크기이므로 bitmapCarNumRcgn을 수행하여 인식 시도.
+   *
+   */
+  public final static native int yuvCarNumDetect(byte[] yuvdata, int width, int height, int screenDir, float[] detArea);
+
 
   
   /*
+   * bitmapCarNumRcgn
+   *
    *  input : bitmap32  
    *  cropArea[0]: 검출영역 left 
       cropArea[1]: 검출영역 top	
@@ -75,7 +100,10 @@ public  class CarNumRcgn {
    */ 
    
   public final  static native String bitmapCarNumRcgn(Bitmap bitmap32,int cropArea[],int status[]);
- 
+
+
+  public final  static native int isBitmapCarNumRcgnBusy();
+
   /*
 	Input 
   yuvdata (input) yuv420sp data from camera preview)
@@ -102,6 +130,7 @@ public  class CarNumRcgn {
  */ 
 
 public final  static native String yuvCarNumRcgn( byte[] yuvdata,int width,int height,int ScreenDir, float detArea[],int statsus[]);
+
 
 /*
 	Input 
@@ -186,5 +215,32 @@ public static Bitmap GetRotatedBitmap(Bitmap bitmap, float fdeg)
     
   **/
 
-     
+
+   public final static String bitmapCarNumRcgnProc(Bitmap bitmap32,int cropArea[],int status[]) {
+   	long tm1, tm2;
+   	String retString = "";
+
+   	tm1 = tm2 = System.currentTimeMillis();
+   	while (true) {
+   		if (isBitmapCarNumRcgnBusy() == 1) {
+   			// wait for the engine to finish the current job.
+		    tm2 = System.currentTimeMillis();
+		    if (tm2 - tm1 > 5000) { // 5초
+			    break;
+		    }
+		    try {
+			    Thread.sleep(50);
+		    }
+		    catch (InterruptedException e) {
+			    e.printStackTrace();
+		    }
+	    }
+   		else {
+   			retString = bitmapCarNumRcgn(bitmap32, cropArea, status);
+   			break;
+	    }
+    }
+   	return retString;
+   }
+
 }

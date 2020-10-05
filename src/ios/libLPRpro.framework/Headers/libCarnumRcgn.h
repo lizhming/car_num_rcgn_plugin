@@ -18,7 +18,7 @@ FOUNDATION_EXPORT const unsigned char libCarnumRcgnVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <libCarnumRcgn/PublicHeader.h>
 
 // framework build version
-#define FrameworkBuildVersion @"2.0.2.2"
+#define FrameworkBuildVersion @"2.0.1.48.02"
 
 // nib 08/12/2018 added libCarnumRcgn class
 @interface libCarnumRcgn : NSObject {

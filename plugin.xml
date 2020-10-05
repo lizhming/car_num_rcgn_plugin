@@ -26,6 +26,11 @@
         <source-file src="src/android/SoundManager.java" target-dir="src/com/cardcam/scantrans" />
         <source-file src="src/android/ViewDraw.java" target-dir="src/com/cardcam/scantrans" />
         
+        <source-file src="src/android/CordovaLocationListener.java" target-dir="src/com/cardcam/scantrans" />
+        <source-file src="src/android/CordovaLocationServices.java" target-dir="src/com/cardcam/scantrans" />
+        <source-file src="src/android/CordovaUri.java" target-dir="src/com/cardcam/scantrans" />
+        <source-file src="src/android/ExifHelper.java" target-dir="src/com/cardcam/scantrans" />
+        
         <source-file src="src/android/activity_camera.xml" target-dir="res/layout" />
         <source-file src="src/android/btn_shutter_bg_normal.png" target-dir="res/drawable" />
         <source-file src="src/android/btn_shutter_bg_pressed.png" target-dir="res/drawable" />
@@ -37,7 +42,8 @@
         <source-file src="src/android/drawable_flash_off_btn.xml" target-dir="res/drawable" />
         <source-file src="src/android/drawable_shutter_btn.xml" target-dir="res/drawable" />
         <source-file src="src/android/qtranslator.ogg" target-dir="res/raw" />
-        <source-file src="src/android/libLPRPro.so" target-dir="jniLibs/arm64-v8a" />
+        <source-file src="src/android/v8/libLPRPro.so" target-dir="jniLibs/arm64-v8a" />
+        <source-file src="src/android/v7/libLPRPro.so" target-dir="jniLibs/armeabi-v7a" />
 
         <source-file src="src/android/layout_gallery.xml" target-dir="res/layout" />
         <source-file src="src/android/activity_gallery.xml" target-dir="res/layout" />

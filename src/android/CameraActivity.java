@@ -96,7 +96,6 @@ import android.widget.RelativeLayout.LayoutParams;
 
 
 public class CameraActivity extends Activity implements SurfaceHolder.Callback
-        /*, RelativeLayoutDetectsSoftKeyboard.Listener // nib 07/11/13 54080 killed */
 {
     private static final String TAG = CameraActivity.class.getSimpleName();
 
@@ -104,24 +103,19 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     static String AutoImage_path = "/CarNumRcgn/imgdata/";
 
     public int Captured_ModeEnable=0;
-    // 0 only preview  1=capture  2= fling preview,capture
-    public int Clip_ModeEnable=1;
 
     private MessageHandler handler=null;
 
     public ViewDraw viewdraw;
 
-    public int  PreviewResMode=0;
     private int hasSurface=0;
     public int  selectWordIndex=-1;
 
-    public int 	OccupiedArea=0;
-    public int  IppBitmap_AccuracyMode=0;
     public int 	LPRprevDet=0;
     public int 	detProcessStatus=0;
     public int 	ImgButtonStatus=0;
-    private String characterSet;
     public static String LPRNoti;
+    public Button mButtonOK;
 
     private SoundManager mSoundManager=null;
 
@@ -130,36 +124,23 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     private Bitmap trans_image=null; // for animation Image
     private Bitmap dipl_image=null;
 
-    public int Screen_width0=0;
-    public int Screen_height0=0;
     public int iPage_Screen_width=0;
     public int iPage_Screen_height=0;
     public float iPage_adjSbarRat=0;
     private int LPR_left=0, LPR_top=0, LPR_right=0, LPR_bottom=0;
 
     // =========================================================================================
-    int result = -1;
-
-    public int UnitBlkInfo = 5, PhraseBlkSn = 40;
-
-    //public int sel_language = 0, change_language = 0, change_txtlang = 0;
-
     public boolean Quit_flg=false;
 
     public Typeface mFace=Typeface.DEFAULT;		// nib 02/13/13 private -> public
 
     public String PhoneModel="",PhoneVersion="";
-    public boolean ClipBubleEnableVersion=false; // true: >=4.2.0
 
     private int dialogID=0;
     private int mDialogID=0;
     String fileName="";
     String inform_msg="";
     // ==============================================================================================
-
-    public String Word2Str = "";
-
-
     public int ProcessStatus = 0, init_ProcessStatus = -1, AddWord_flg = 0;
 
     public Point ScreenSize = new Point(800, 480);
@@ -175,10 +156,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     // ====================================================
     public Rect rcArea = new Rect(10, 62, 470, 250);
 
-    public int beOtherMean = 0;
-
-    //public int Touch_whichcorn = 0, Touch_capMove = 0, enable_leftMenu = 1;
-
     public long TouchMenuTime = 0;
 
     public long decodeTm = 0, End_tm = 0,Touch_tm=0, Resume_tm=0, CamOpenTm=0;
@@ -187,7 +164,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public int vfdrawing = 0;
 
-    private int mX, mY, mmX, mmY;
 
     public  final static int IPP_PREVIEW =1;
     public  final static int IPP_IMAGEGOT =2;
@@ -197,21 +173,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public  final static int DET_CAPTURE_Start =10;
     public  final static int DET_CAPTURE_Ready =20;
-    public  final static int DET_CAPTURE_GetInf =30;
-    public  final static int DET_PERSPECT_OnANI =40;
-    public  final static int DET_PERSPECT_Doing =50;
-    public  final static int DET_PERSPECT_Done =60;
 
     public  final static int CAPTURE_START	=10;
     public  final static int CAPTURE_GotImage =20;
     public  final static int CAPTURE_GotTargetData =40;
     public  final static int CAPTURE_DoneTranslate =50;
 
-    public  final static int VIEW_INVISIBLE = 100;
-    public  final static int VIEW_MINIMUM = 101;
-    public  final static int VIEW_SIMPLE = 102;
-    public  final static int VIEW_FULL = 103;
-    public  final static int VIEW_REFRESH = 104;
 
 
     private final static int DISMISS_PROGRESSDIALOG = 10001;
@@ -255,26 +222,11 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     private final static int MSG_IPPSave= 10039;
 
     private final static int MSG_LPRprocessing= 10110;
-    private final static int MSG_CAPTURE_PerspectTrans= 10111;
 
     private final static int MSG_SetViewImage= 10120;
     private final static int MSG_SetTransImage= 10130;
     private final static int MSG_EndProcess= 10140;
 
-
-    public int TchVal_cMenuProc = 0x0001; // capture Image Menu-Processing
-
-    public int TchVal_MarkOff = 0x0002; //
-
-    public int TchVal_GetFocus = 0x0004;
-
-    public int TchVal_sdcardFsave = 0x0008;
-
-    public int TchVal_sdcardFRead = 0x0010;
-
-    public int TchVal_Language = 0x0020;
-
-    public int TchVal_Internet = 0x0040;
 
     public int TchVal_Capture = 0x0080;
 
@@ -293,18 +245,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     public int TchVal_RcgnWork = TchVal_phrase | TchVal_Dictionary | TchVal_LineTrans
             | TchVal_Document;
 
-    public int TchVal_DocDir_V = 0x4000;
-
-    public int TchVal_AddClip = 0x8000;
-
-    public int TchVal_History = 0x10000; //
-
-    public int TchVal_CompMoire = 0x20000; // smooth for moire
-
-    public int CaptTextArea_V_sx = 540;
-
-    public int CaptTextArea_H_sy = 360;
-
     public int Tch_Mode = TchVal_Dictionary;
 
     public int Tch_flashMode =0;
@@ -318,92 +258,25 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public int maxZoom, Touch_zv, svTouch_zv;
 
-    public int beTransDocuStr = 0, beTrnsLineResult = 0, beTrnsDocuResult = 0, beDictResult = 0;
-
-    public int AutoAdjust_LineHeight = 0;
-
-    private int NumChangeRes = 0;
-
-
     public long DnSetTime = 0;
 
-    public boolean DnSetting = false;
-
-    public float[] HeXa_magnif = {
-            1.0f, 1.2f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f, 2.75f, 3.0f, 3.5f, 4.0f, 4.5f, 5.0f, 6.25f,
-            7.5f
-    };
-
-    public String TranStr = "";
-
-    public String FromStr = "", t_FromStr = "";
-
-    public int t_wordtype=0,wordtype2n=0;
-    //public int ReqType = 0;
-    //public String ReqString = "";
-
-    public int WordClipView_sIdx, WordClipView_eIdx;
-
-    public String TransDocustr = "";
-
-    public String iViewStr = "";
-
-    public String FromVstr = new String();
-
-    public String TranVstr = new String();
-
-    public int MAX_DicWord = 300;
-    public int MAX_StrNum = 300;
-    public int docuEndStatus=190;
-
-    public int TrStrSize = 512;
-    public int DocuStrSize = 512;
-    public int WordStrSize = 128;
-    public int MAX_ClipBdSize = 4096;
-
-    //public byte[] ClipBd_Buff = new byte[MAX_ClipBdSize];
-
-    public byte[] TrLnStr = new byte[4 * TrStrSize]; // new byte[512];
-
-    public int PhraseNum = 0, Crossidx = 0;
-
-    public byte[] BufStr = new byte[TrStrSize];
-
-    public int[] DocuLnLength = new int[MAX_DicWord];
 
     public int[] TrLnStrLength = new int[8];
 
-    public int Clip_Num = 0, WordClipNum = 0;
-
-    public int DocuLineNum = 0;
-
-    public int TrLineChgnum = 0, TrLineChgnum1 = 0;
-
-    public int cProcessStatus = 0;
-    public int docu_autofocus = 0;
 
 
-    public long DocuDirChgDTm = 0, txtScroll_tm = 0, WingScroll_tm = 0, zoom_tm = 0, zoom_sm = 0,
+    public long zoom_tm = 0, zoom_sm = 0,
             Ready_tm = 0;
 
-    public int res_chgstatus = 0,zoom_point=0;
+    public int zoom_point=0;
 
-    public int BtMode_touch = 0, Touchzoom_mode = 0;
-
-    public int BtMode_x1 = 0, BtMode_x2, BtMode_y1, BtMode_y2;
-
-
-    public int DicTextSize = 24;
+    public int Touchzoom_mode = 0;
 
     private boolean KeepScreenOn = true;
 
     private boolean AutoLPR = false;
 
-    public int NonShaker = 0;
-
     public int ScreenDirection = 90, t1_ScreenDirection = 360; // 0=landscape
-
-    public int Phrase_BlkNum = 0;
 
     public int OnCapture_status = 0;
 
@@ -425,85 +298,28 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public int Flingvx = 0, Flingvy = 0;
 
-    private int canFlash=0,canFlsh_checked=0;
+    private int canFlash=0;
 
     UnlockReceiver unlockReceiver=null;
 
     public int transMode = 0;
     public boolean translating_flg = false;
-    private boolean trans_URLOK=false;
     // ===========================================
-    //private boolean reqBindservice_available = true;
-
-    // private int reqBindservice_num = 0;
-
-    public int Transing_fail = 0;
-
-    private long  fullDnUp_tm=0;
-
-    private boolean onUI_flg=false;
-
-    public char FormTxt_mark = 0x25cf; //
-
-    public char TransTxt_mark = 0x25b8; //
-
-    public int WordCopyNum = 0;
-
     public int right_margine = 0;
     public int bottom_margine = 68;
 
-    volatile public int TransScrollTxt_reNew = 0;
 
     volatile public int menu_drawable = 1;
 
-    public int Docu_Direction = 0;
-
-    public boolean  transModeChanging = false;
 
     private int mProgressType=0;
 
 
-    public int BoundTryNum= 0;
-    public int moreFreeDictNum= 0;
 
-    private int Request_Activity = 0, t_Request_Activity = 0;
-    private int chk_Request_Activity=0;
-
-    private int onActCamera = 0;
-
-    public int tDic_Mode = 0, Dic_Mode = 0x11;
-
-    public int TchVal_DicSel = 1;
-
-    public int mTitleColor, MeanTextColor;
-
-    public int DictSn = 0, DictEn = 0, DictCn = 0;
-
-    //public String titleStr="" ;
-    // public String meaningStr="" ;
-    // public String t_meaningStr="" ;
-    public String DictTitleStr = "";
-
-    public int DictSuid = 0, DictPos = 0, CurDictType = 0xB04;
-
-    // public int DictSuid2 =0, mDicType2 = 0xB04;
-    public int ClipList_id = 0, ClipList_id_px = 0, ClipList_id_py = 0;
-
-    //public int ActiveConPreview = 10, t_ActiveConPreview = 10;
-
-    volatile public int ViewClipList_chgflag = 0; // display
+    private int Request_Activity = 0;
 
     public int FontSizeType = 2;
 
-    public int ClipList_height = 200;
-
-    public int BottomMenu_ht = 72;
-
-    public boolean DictSelecting = false;
-
-    public int DictType_ID = 0, t_DictType_ID = 0;
-
-    LinearLayout loginLayout = null;
 
     public long IppTime=0;
 
@@ -513,52 +329,21 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     CheckBox checkbox;
 
     String status_msg="";
-    public int IndexConnectChk_OK=10;
-    public int IndexConnectChk_NO=1;
-
-    public boolean DictbyGooglTrans = false;
-
-    private int NetCom_Tch_Mode = 0;
-
-    private boolean checkBox_flg = false;
-
-    public int DictReady_OK = 0;
-
-    public int Req_GetDictData = 0;
-
-    public int NetWork_UseTemporal = 0;
-    public int init_DictSetLang = 0;
-    public int PerProcess = 0;
 
     float dpiscale;
 
-    int langItemHeight = 40;
-
-    public RelativeLayout mIntro_layout,buttons_Layout,checkboxs_Layout;
-
-    //public RelativeLayout mFlash_layout;	// nib 01/30/13 added
-
-
-    // to here -------------------
-
-    private RelativeLayout mText_MsgLay;
-
+    public RelativeLayout buttons_Layout,checkboxs_Layout;
 
     private ImageButton mShutterBtn,mFlashBtn;
 
-    // private ImageView idxConnectArea;
     public  RelativeLayout CaptureImgLay=null;
     public  ImageView CaptureImgView=null;
     public  TextView  mText_MsgView=null;
     public  TextView  mText_RetryGuide=null;
 
     public  TextView  version_Msg=null;
-    public String mtype_QPATH ;
-    public int IPP_animateMode=1;
 
     ByteBuffer CaptureImg32=null;
-
-    long intsall_tm = 0;
 
     public boolean Camera_initOK=false;
     private boolean Camara_resume=false;
@@ -579,9 +364,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     // to here -----------------
     WakeLock wakeLock = null;
 
-    private String appName=null,appNamek=null;
-    private boolean kor_version=false;
-
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -590,17 +372,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         setContentView(getResources().getIdentifier("activity_camera", "layout", getPackageName()));
 
-
-//        mIntro_layout = (RelativeLayout)findViewById(R.id.intro_lay);
-//        mIntro_layout.setVisibility(View.VISIBLE);
-
         setVolumeControlStream(AudioManager.STREAM_MUSIC);		// nib 03/15/13
 
         viewdraw = new ViewDraw(this);
 
         ((FrameLayout)findViewById(getResources().getIdentifier("viewdraw", "id", getPackageName()))).addView(viewdraw);
 
-        kor_version=false;
+        mButtonOK = findViewById(getResources().getIdentifier("confirm_btn", "id", getPackageName()));
+
         hasSurface=0;
 
         int validpkg=CarNumRcgn.SetActivity(this);
@@ -609,7 +388,22 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         Tch_Mode =TchVal_Document;
         Tch_captureMode =TchVal_Capture;
 
+        mButtonOK.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirm();
+            }
+        });
+
+        setResult(100);
+
         getPermissions();
+    }
+    void confirm() {
+        Intent intent = new Intent();
+        intent.putExtra("data", fileName);
+        setResult(101, intent);
+        finish();
     }
 
     public  Context TransCamCtx(){
@@ -625,6 +419,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             // 앱 자신이 read/write가능한 앱 자체 data 영역으로 잡아주므로,
             // 아래 저장장치에 대한 runtime permission은 굳이 필요없다.
             permitted += PermissionChecker.checkSelfPermission(CameraActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            permitted += PermissionChecker.checkSelfPermission(CameraActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
             if (permitted != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(CameraActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
             }
@@ -838,28 +633,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public void SetCamviewLayout()
     {
-
-        SurfaceView camView=(SurfaceView) findViewById(getResources().getIdentifier("preview_view", "id", getPackageName()));
-        if(camView==null)
-            return;
-
-        LayoutParams params = (LayoutParams)camView.getLayoutParams();
-
-        params.width=ScreenSize.x;
-        params.height=ScreenSize.y;
-
-        params.leftMargin =0;
-        params.topMargin =0;
-        params.rightMargin=0;
-        params.bottomMargin=0;
-
-        //params.setMargins(params.leftMargin, params.topMargin,0, 0);
-        camView.setLayoutParams(params);
-
-        View v=(View) findViewById(getResources().getIdentifier("PrevLPR", "id", getPackageName()));
-        params = (LayoutParams)v.getLayoutParams();
-        params.rightMargin=Getdp(6);
-        v.setLayoutParams(params);
     }
     public void SetCaptureImgLayout(int wd,int ht)
     {
@@ -1612,23 +1385,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         return false;//true;
     }
 
-//    public void afterTouchEvent(MotionEvent event) {
-//
-//        if (DictSelecting == false && sel_language == 0 && LangOpt != t_LangOpt) {
-//            Message message = Message.obtain(handler, R.id.language_btn);
-//            if (handler != null && message != null)
-//                message.sendToTarget();
-//            //startmenu_flg = false;
-//        }
-//
-//        if (event.getPointerCount() == 1 && event.getAction() == MotionEvent.ACTION_DOWN)
-//            ViewInvalid();
-//        else if (event.getAction() == MotionEvent.ACTION_MOVE
-//                && Touchzoom_mode > 0 )
-//            ViewInvalid();
-//
-//    }
-
 
     private final static int MSG_FOCUS_TRUE= 10001;
     private final static int MSG_FOCUS_FALSE= 10002;
@@ -1696,13 +1452,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         if (menu_drawable == 0)
             return true;
-        mmX = mmY = 0;
-
-//        if (ActiveConPreview == 0) {
-//            t_ActiveConPreview = ActiveConPreview = 10;
-//        }
-
-        //detect.onTouchEvent(event);
 
         x = (int)event.getX() + offsetX;
         y = (int)event.getY() + offsetY;
@@ -1747,8 +1496,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
 
         if (event.getAction() == MotionEvent.ACTION_MOVE && event.getPointerCount() == 1 && !Zooming_flg) {
-            mmX = x;
-            mmY = y;
 
         } else if (event.getAction() == MotionEvent.ACTION_MOVE && event.getPointerCount() == 2) {
             zoom_point=2;
@@ -1763,8 +1510,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             int wp = 0;
             Touch_x0 = Touch_x1 = 0;
             Flingvx = Flingvy = 0;
-            mX = x;
-            mY = y;
         }
 
         else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -1817,7 +1562,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mText_RetryGuide.setVisibility(View.VISIBLE);
+                mButtonOK.setVisibility(View.VISIBLE);
+//                mText_RetryGuide.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -1826,7 +1572,8 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mText_RetryGuide.setVisibility(View.INVISIBLE);
+                mButtonOK.setVisibility(View.INVISIBLE);
+//                mText_RetryGuide.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -1888,13 +1635,13 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
                     if(CameraControl.camControl.isFocus_ContinuousMode()==1)
                     {
-                        if(FocusValue>=8 )//&& FocusValue>=MaxFocusValue/2)
+                        if(FocusValue>=0)//8 -
                         {
                             RequestCaptureFrame();
                             break;
                         }
                     }
-                    else if(FocusValue>=8 )
+                    else if(FocusValue>=0)//8 -
                     {
                         RequestCaptureFrame();
                         break;
@@ -1947,7 +1694,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
                 case MSG_finish:
                     Quit_flg=true;
-                    finish();
+//                    finish();
                     break;
 
                 case MSG_EndProcess:
@@ -2302,16 +2049,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         paint.setColor(PlateMark);
 
         paint.setStrokeWidth(4);
-        canvas.drawRect(sx, sy, ex, ey, paint);
+//        canvas.drawRect(sx, sy, ex, ey, paint);
 
-        //canvas.drawRect(1, 1, ScreenSize.x, ScreenSize.y, paint);
-        //paint.setAlpha(160);
         txtsize=Getdp(20);
         paint.setTextSize(txtsize);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(txtcolor);
         String level = LPRres ; //+ "\n\n status="+status[0];
-        canvas.drawText(level, sx-txtsize/2, ey+txtsize, paint);
+//        canvas.drawText(level, sx-txtsize/2, ey+txtsize, paint);
         Log.e(TAG, "Accuracy : " + level + " mode = " + Captured_ModeEnable);
 
     }
@@ -2823,7 +2568,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         if(Quit_flg)
         {
-            finish();
+//            finish();
             return;
         }
         if(handler==null) return;
@@ -3132,8 +2877,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             handler = null;
         }
 
-        onActCamera = 0;
-
         Tch_flashMode =0;
         mHandler.removeMessages(MSG_TURNOFF_FLASH);
 
@@ -3264,9 +3007,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         int    size= memoryInfo.getTotalPss() / 1024;
         System.gc();
 
-        if(kickMe==3 || size>=54) {
-            android.os.Process.killProcess(android.os.Process.myPid());
-        }
+//        if(kickMe==3 || size>=54) {
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//        }
         System.gc();
     }
 
@@ -3339,7 +3082,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         hasSurface = 0;
-        onActCamera = 0;
         CameraControl.camControl.CloseCamera();
     }
 
@@ -3462,7 +3204,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         Camera_initOK=true;
         if (handler == null)
         {
-            handler = new MessageHandler(this, characterSet);
+            handler = new MessageHandler(this, "");
             handler.sendEmptyMessage(getResources().getIdentifier("statusWatch", "id", getPackageName()));
         }
 
@@ -3481,7 +3223,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         t1_ScreenDirection = ScreenDirection;
 
-        onActCamera = 1;
         Request_Activity = 0;
         //t_ActiveConPreview=ActiveConPreview=10;
 
@@ -3523,31 +3264,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     };
 
 
-
-    // nib 03/15/13
-    private void touchSoundEffect(View v) {
-        switch (v.getId()) {
-
-//    	case R.id.phrase_result_mini:
-//    		mPhrase_result_mini.playSoundEffect(SoundEffectConstants.CLICK);
-//    		break;
-            default :
-                break;
-        }
-    }
-    // ----------
-
-
     private void init_Layout()
     {
         getScreenSizeDirection(); //Get screen direction and ScreenSize
     }
-
-
-
-
-
-
 
     public static String GetCurrentFileName(String ext) {
 
@@ -3618,7 +3338,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         mShutterBtn.setVisibility(View.VISIBLE);
 
 
-        mText_MsgLay=(RelativeLayout) findViewById(getResources().getIdentifier("text_Msg_lay", "id", getPackageName()));
+//        mText_MsgLay=(RelativeLayout) findViewById(getResources().getIdentifier("text_Msg_lay", "id", getPackageName()));
         mText_MsgView=(TextView) findViewById(getResources().getIdentifier("text_msg_noti", "id", getPackageName()));
         mText_RetryGuide=(TextView) findViewById(getResources().getIdentifier("text_guide", "id", getPackageName()));
         if(ProcessStatus!=0 && canFlash==0)
@@ -4037,6 +3757,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         try {
             String filename=GetCurrentFileName(".jpg");
             FileOutputStream out = new FileOutputStream(wcard+SaveImage_path+filename);
+            fileName = wcard+SaveImage_path+filename;
             //tmp.compress(Bitmap.CompressFormat.PNG, 100, out);
             img.compress(Bitmap.CompressFormat.JPEG, 100, out);
         }

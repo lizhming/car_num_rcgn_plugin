@@ -1,184 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/main_frame"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#00000000"
-	android:gravity="bottom" >
-
-
+	android:background="#Ffffff"
+	android:orientation="vertical">
 	<SurfaceView android:id="@+id/preview_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="#00000000"/>
-
-
-	<FrameLayout
-		android:id="@+id/viewdraw"
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
 		android:background="#00000000"
+		android:gravity="bottom" >
 
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+		<FrameLayout
+			android:id="@+id/viewdraw"
+			android:background="#00000000"
 
-		<RelativeLayout
-			android:id="@+id/imgView_Lay"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:visibility="invisible"
-			android:background="#ff000000" >
-			<ImageView
-				android:id="@+id/imgView"
-				android:visibility="visible"
+			android:visibility="invisible">
 
+			<RelativeLayout
+				android:id="@+id/imgView_Lay"
 				android:layout_width="fill_parent"
-				android:layout_height="fill_parent"/>
+				android:layout_height="fill_parent"
+				android:visibility="invisible"
+				android:background="#ff000000" >
 
-		</RelativeLayout>
-	</FrameLayout>
+				<ImageView
+					android:id="@+id/imgView"
+					android:layout_width="fill_parent"
 
-<!--	<RelativeLayout-->
-<!--		android:id="@+id/intro_lay"-->
-<!--		android:layout_width="fill_parent"-->
-<!--		android:layout_height="fill_parent"-->
-<!--		android:background="#ff000000"-->
-<!--		android:gravity="center"-->
-<!--		android:visibility="invisible" >-->
-<!--		<ImageButton-->
-<!--			android:id="@+id/intro_btn"-->
-<!--			android:layout_centerHorizontal="true"-->
-<!--			android:layout_width="wrap_content"-->
-<!--			android:layout_height="wrap_content"-->
-<!--			android:background="@drawable/cam_loading" />-->
-<!--	</RelativeLayout>-->
+					android:layout_height="fill_parent"
+					android:visibility="visible" />
 
-
-	<RelativeLayout
-		android:id="@+id/relative_layout1"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:background="#00000000"
-		android:layout_marginTop="4dp"
-		android:visibility="visible" >
-
-
-		<ImageButton
-			android:id="@+id/flash_btn"
-			android:layout_width="53.67dp"
-			android:layout_height="53.67dp"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"
-			android:background="@android:color/transparent"
-			android:contentDescription="Flash button"
-			android:scaleType="fitXY"
-			android:src="@drawable/drawable_flash_off_btn"
-			android:visibility="visible" />
-
+			</RelativeLayout>
+		</FrameLayout>
 
 
 		<RelativeLayout
-			android:id="@+id/checkBox_lay"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@+id/flash_btn"
-			android:visibility="gone">
-
-			<CheckBox
-				android:id="@+id/checkBox1"
-				android:layout_marginLeft="2dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_alignParentTop="true"
-				android:text="Save"
-				android:textSize="6.5sp"
-				android:visibility="gone"/>
-
-
-
-			<Button android:id="@+id/PrevLPR"
-				android:layout_alignParentRight="true"
-				android:layout_marginTop="6dp"
-				android:layout_marginRight="4dp"
-				android:textSize="8sp"
-				android:textStyle="bold"
-				android:layout_gravity="center_vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="40dp"
-				android:text="prevLPR"/>
-
-			<Button android:id="@+id/BmpLPR"
-				android:layout_toLeftOf="@+id/PrevLPR"
-				android:layout_marginTop="6dp"
-				android:layout_marginRight="2dp"
-				android:textSize="8sp"
-				android:textStyle="bold"
-				android:layout_gravity="center_vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="40dp"
-				android:text="Gallery"/>
-
-			<Button android:id="@+id/StepLPR"
-				android:layout_toLeftOf="@+id/BmpLPR"
-				android:layout_marginTop="6dp"
-				android:layout_marginRight="2dp"
-				android:textSize="8sp"
-				android:textStyle="bold"
-				android:layout_gravity="center_vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="40dp"
-				android:text="StepLPR"/>
-
-			<Button android:id="@+id/AutoTestLPR"
-				android:layout_toLeftOf="@+id/StepLPR"
-				android:layout_marginTop="6dp"
-				android:layout_marginRight="2dp"
-				android:textSize="8sp"
-				android:textStyle="bold"
-				android:layout_gravity="center_vertical"
-				android:layout_width="wrap_content"
-				android:layout_height="40dp"
-				android:text="AutoLPR"/>
-
-			<TextView
-				android:id="@+id/version_msg"
-				android:layout_alignParentRight="true"
-				android:layout_below="@id/BmpLPR"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_centerVertical="true"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:shadowColor="#7f000000"
-				android:shadowDx="2"
-				android:shadowDy="2"
-				android:shadowRadius="2"
-				android:singleLine="false"
-				android:text="LPR-1.0.001"
-				android:textColor="#FFFFFFFF"
-				android:textSize="10dp"
-				android:textStyle="bold" />
-
-		</RelativeLayout>
-
-
-
-		<RelativeLayout
-			android:id="@+id/text_Msg_lay"
+			android:id="@+id/relative_layout1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:background="#00ffffff"
-			android:layout_below="@+id/flash_btn"
-			android:layout_marginTop="8dp"
-			android:visibility="gone" >
-			<!-- nib 09/23/13 shadow effect -->
-			<TextView
-				android:id="@+id/text_msg_noti"
+			android:background="#00000000"
+			android:layout_marginTop="4dp"
+			android:visibility="visible" >
+
+			<ImageButton
+				android:id="@+id/flash_btn"
+				android:layout_width="53.67dp"
+				android:layout_height="53.67dp"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+				android:background="@android:color/transparent"
+				android:contentDescription="Flash button"
+				android:scaleType="fitXY"
+				android:src="@drawable/drawable_flash_off_btn"
+				android:visibility="visible" />
+
+			<RelativeLayout
+				android:id="@+id/checkBox_lay"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_toRightOf="@+id/flash_btn"
+				android:visibility="gone">
 
+				<CheckBox
+					android:id="@+id/checkBox1"
+					android:layout_marginLeft="2dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
+					android:text="Save"
+					android:textSize="6.5sp"
+					android:visibility="gone"/>
+
+
+
+				<Button android:id="@+id/PrevLPR"
+					android:layout_alignParentRight="true"
+					android:layout_marginTop="6dp"
+					android:layout_marginRight="4dp"
+					android:textSize="8sp"
+					android:textStyle="bold"
+					android:layout_gravity="center_vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:text="prevLPR"/>
+
+				<Button android:id="@+id/BmpLPR"
+					android:layout_toLeftOf="@+id/PrevLPR"
+					android:layout_marginTop="6dp"
+					android:layout_marginRight="2dp"
+					android:textSize="8sp"
+					android:textStyle="bold"
+					android:layout_gravity="center_vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:text="Gallery"/>
+
+				<Button android:id="@+id/StepLPR"
+					android:layout_toLeftOf="@+id/BmpLPR"
+					android:layout_marginTop="6dp"
+					android:layout_marginRight="2dp"
+					android:textSize="8sp"
+					android:textStyle="bold"
+					android:layout_gravity="center_vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:text="StepLPR"/>
+
+				<Button android:id="@+id/AutoTestLPR"
+					android:layout_toLeftOf="@+id/StepLPR"
+					android:layout_marginTop="6dp"
+					android:layout_marginRight="2dp"
+					android:textSize="8sp"
+					android:textStyle="bold"
+					android:layout_gravity="center_vertical"
+					android:layout_width="wrap_content"
+					android:layout_height="40dp"
+					android:text="AutoLPR"/>
+
+				<TextView
+					android:id="@+id/version_msg"
+					android:layout_alignParentRight="true"
+					android:layout_below="@id/BmpLPR"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerVertical="true"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:shadowColor="#7f000000"
+					android:shadowDx="2"
+					android:shadowDy="2"
+					android:shadowRadius="2"
+					android:singleLine="false"
+					android:text="LPR-1.0.001"
+					android:textColor="#FFFFFFFF"
+					android:textSize="10dp"
+					android:textStyle="bold" />
+
+			</RelativeLayout>
+			<RelativeLayout
+				android:id="@+id/text_Msg_lay"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="#00ffffff"
+				android:layout_below="@+id/flash_btn"
+				android:layout_marginTop="8dp"
+				android:visibility="gone" >
+				<!-- nib 09/23/13 shadow effect -->
+				<TextView
+					android:id="@+id/text_msg_noti"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+
+					android:paddingLeft="20dp"
+					android:paddingRight="20dp"
+					android:text=" percent 0%"
+					android:textColor="#FFFFFFFF"
+					android:textStyle="bold"
+					android:shadowColor="#7f000000"
+					android:shadowDx="2"
+					android:shadowDy="2"
+					android:shadowRadius="2"
+					android:singleLine="false"
+					android:textSize="15sp" />
+			</RelativeLayout>
+		</RelativeLayout>
+
+
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_marginBottom="30dp"
+			android:orientation="vertical"
+			android:visibility="visible">
+
+			<ImageButton
+				android:id="@+id/shutter_btn"
+				android:layout_centerHorizontal="true"
+				android:layout_width="100dp"
+				android:layout_height="50dp"
+				android:visibility="visible"
+				android:adjustViewBounds="true"
+				android:scaleType="centerInside"
+				android:src="@drawable/drawable_shutter_btn"
+				android:background="@android:color/transparent"
+				android:contentDescription="Shutter"/>
+			<Button
+				android:id="@+id/confirm_btn"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="확인"
+				android:textColor="#fff"
+				android:textSize="16dp"
+				android:layout_marginRight="20dp"
+				style="@style/Widget.AppCompat.Button.Borderless"
+				android:layout_alignParentRight="true"
+				android:visibility="invisible"/>
+
+			<TextView
+				android:id="@+id/text_guide"
+				android:layout_centerHorizontal="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/shutter_btn"
 				android:paddingLeft="20dp"
 				android:paddingRight="20dp"
-				android:text=" percent 0%"
+				android:text=""
 				android:textColor="#FFFFFFFF"
 				android:textStyle="bold"
 				android:shadowColor="#7f000000"
@@ -186,73 +221,34 @@
 				android:shadowDy="2"
 				android:shadowRadius="2"
 				android:singleLine="false"
+				android:visibility="gone"
 				android:textSize="15sp" />
+
 		</RelativeLayout>
-	</RelativeLayout>
 
-
-
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_marginBottom="30dp"
-		android:orientation="vertical"
-		android:visibility="visible">
-
-		<ImageButton
-			android:id="@+id/shutter_btn"
-			android:layout_centerHorizontal="true"
-			android:layout_width="wrap_content"
+		<RelativeLayout
+			android:id="@+id/btnLayout"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:visibility="visible"
-			android:scaleType="fitXY"
-			android:src="@drawable/drawable_shutter_btn"
-			android:background="@android:color/transparent"
-			android:contentDescription="Shutter"/>
+			android:layout_alignParentBottom="true"
+			android:layout_marginBottom="10dp"
+			android:orientation="vertical"
+			android:visibility="visible" >
 
-		<TextView
-			android:id="@+id/text_guide"
-			android:layout_centerHorizontal="true"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/shutter_btn"
-			android:paddingLeft="20dp"
-			android:paddingRight="20dp"
-			android:text=" prevLPR button to retry "
-			android:textColor="#FFFFFFFF"
-			android:textStyle="bold"
-			android:shadowColor="#7f000000"
-			android:shadowDx="2"
-			android:shadowDy="2"
-			android:shadowRadius="2"
-			android:singleLine="false"
-			android:visibility="gone"
-			android:textSize="15sp" />
+			<Button
+				android:id="@+id/savebtn"
+				android:visibility="gone"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="20dp"
+				android:layout_marginRight="4dp"
+				android:layout_alignParentRight="true"
+				android:textSize="15dp"
+				android:text="focusSave" />
+
+		</RelativeLayout>
+
 
 	</RelativeLayout>
 
-	<RelativeLayout
-		android:id="@+id/btnLayout"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_marginBottom="10dp"
-		android:orientation="vertical"
-		android:visibility="visible" >
-
-		<Button
-			android:id="@+id/savebtn"
-			android:visibility="gone"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:layout_marginRight="4dp"
-			android:layout_alignParentRight="true"
-			android:textSize="15dp"
-			android:text=" focusSave" />
-
-	</RelativeLayout>
-
-
-</RelativeLayout>
+</FrameLayout>

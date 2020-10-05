@@ -7,3 +7,7 @@ exports.recognize = function (path, success, error) {
 exports.showGallery = function (success, error) {
     exec(success, error, 'car_num_rcgn_lib', 'show_gallery', []);
 };
+
+exports.openCamera = function(success, error) {
+    exec(success, error, 'car_num_rcgn_lib', 'open_camera', []);
+};

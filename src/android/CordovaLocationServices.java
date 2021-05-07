@@ -279,24 +279,24 @@ public class CordovaLocationServices implements
 
 
     public String getDms(double val) {
-        return "" + val;
-//        double valDeg;
-//        double valMin;
-//        double valSec;
-//        String result;
-//
-//        val = Math.abs(val);
-//
-//        valDeg = Math.floor(val);
-//        result = String.valueOf((int) valDeg) + "/1,";
-//
-//        valMin = Math.floor((val - valDeg) * 60);
-//        result += String.valueOf((int) valMin) + "/1,";
-//
-//        valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 10000);
-//        result += String.valueOf((int) valSec) + "/10000";
-//
-//        return result;
+        //return "" + val;
+        double valDeg;
+        double valMin;
+        double valSec;
+        String result;
+
+        val = Math.abs(val);
+
+        valDeg = Math.floor(val);
+        result = String.valueOf((int) valDeg) + "/1,";
+
+        valMin = Math.floor((val - valDeg) * 60);
+        result += String.valueOf((int) valMin) + "/1,";
+
+        valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 10000);
+        result += String.valueOf((int) valSec) + "/10000";
+
+        return result;
     }
 
 

@@ -183,8 +183,19 @@
 			android:visibility="visible">
 
 			<ImageButton
+				android:id="@+id/gallery_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@android:color/transparent"
+				android:layout_marginLeft="20dp"
+				android:src="@drawable/ic_gallery"
+				android:scaleType="centerInside"
+				android:contentDescription="Gallery"/>
+
+			<ImageButton
 				android:id="@+id/shutter_btn"
 				android:layout_centerHorizontal="true"
+				android:layout_centerVertical="true"
 				android:layout_width="100dp"
 				android:layout_height="50dp"
 				android:visibility="visible"
@@ -197,12 +208,26 @@
 				android:id="@+id/confirm_btn"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
 				android:text="확인"
 				android:textColor="#fff"
 				android:textSize="16dp"
 				android:layout_marginRight="20dp"
 				style="@style/Widget.AppCompat.Button.Borderless"
 				android:layout_alignParentRight="true"
+				android:visibility="invisible"/>
+
+			<Button
+				android:id="@+id/retry_btn"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:text="다시찍기"
+				android:textColor="#fff"
+				android:textSize="16dp"
+				android:layout_marginLeft="20dp"
+				style="@style/Widget.AppCompat.Button.Borderless"
+				android:layout_alignParentLeft="true"
 				android:visibility="invisible"/>
 
 			<TextView

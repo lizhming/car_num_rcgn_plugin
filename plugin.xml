@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.cardcam" version="0.0.1"
+<plugin id="com.cardcam" version="0.0.2"
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>car_num_rcgn_lib</name>
@@ -38,6 +38,7 @@
         <source-file src="src/android/btn_toolbar_flash_pressed.png" target-dir="res/drawable" />
         <source-file src="src/android/btn_toolbar_flash_off_normal.png" target-dir="res/drawable" />
         <source-file src="src/android/btn_toolbar_flash_off_pressed.png" target-dir="res/drawable" />
+        <source-file src="src/android/ic_gallery.png" target-dir="res/drawable" />
         <source-file src="src/android/drawable_flash_btn.xml" target-dir="res/drawable" />
         <source-file src="src/android/drawable_flash_off_btn.xml" target-dir="res/drawable" />
         <source-file src="src/android/drawable_shutter_btn.xml" target-dir="res/drawable" />

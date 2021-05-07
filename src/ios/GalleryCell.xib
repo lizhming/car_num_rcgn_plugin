@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,6 +33,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drs-C7-7Fv">
+                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="LBU-yA-J07"/>
+                            <constraint firstAttribute="height" constant="40" id="OP8-cK-SoM"/>
+                        </constraints>
+                        <state key="normal" image="square" catalog="system"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Kcj-eu-INU" secondAttribute="bottom" id="A97-qA-C2n"/>
@@ -40,8 +48,10 @@
                     <constraint firstItem="nDK-cd-6KZ" firstAttribute="top" secondItem="6ng-S5-91L" secondAttribute="top" id="Jzp-pf-JIQ"/>
                     <constraint firstItem="Kcj-eu-INU" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="Mfd-3R-VjP"/>
                     <constraint firstItem="nDK-cd-6KZ" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="hZa-pO-uPj"/>
+                    <constraint firstItem="drs-C7-7Fv" firstAttribute="top" secondItem="6ng-S5-91L" secondAttribute="top" id="oLY-tT-Y34"/>
                     <constraint firstAttribute="trailing" secondItem="nDK-cd-6KZ" secondAttribute="trailing" id="r6y-DV-HNw"/>
                     <constraint firstAttribute="trailing" secondItem="Kcj-eu-INU" secondAttribute="trailing" id="rFH-Yc-N5n"/>
+                    <constraint firstItem="drs-C7-7Fv" firstAttribute="leading" secondItem="6ng-S5-91L" secondAttribute="leading" id="wk8-gx-GQg"/>
                     <constraint firstItem="Kcj-eu-INU" firstAttribute="top" secondItem="nDK-cd-6KZ" secondAttribute="bottom" id="zWB-pN-V2R"/>
                 </constraints>
             </collectionViewCellContentView>
@@ -49,4 +59,7 @@
             <point key="canvasLocation" x="1044.9275362318842" y="65.959821428571431"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="square" catalog="system" width="128" height="114"/>
+    </resources>
 </document>

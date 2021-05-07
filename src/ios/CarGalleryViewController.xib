@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +32,7 @@
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gRc-Ud-TvS">
                     <rect key="frame" x="0.0" y="94" width="414" height="802"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="V1J-l9-VSh">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -43,24 +44,39 @@
                         <outlet property="delegate" destination="-1" id="jq6-60-dVS"/>
                     </connections>
                 </collectionView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84h-2Y-cvF">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="84h-2Y-cvF">
                     <rect key="frame" x="334" y="54" width="80" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="owf-7x-ojb"/>
                     </constraints>
                     <state key="normal" title="취소">
-                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="titleColor" systemColor="darkTextColor"/>
                     </state>
                     <connections>
                         <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="oHs-Hr-Ak4"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0D-j5-hes">
+                    <rect key="frame" x="0.0" y="54" width="80" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="zxP-ny-uve"/>
+                    </constraints>
+                    <state key="normal" title="삭제">
+                        <color key="titleColor" systemColor="darkTextColor"/>
+                    </state>
+                    <connections>
+                        <action selector="onClickDelete:" destination="-1" eventType="touchUpInside" id="IEe-Um-i7f"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="J0D-j5-hes" firstAttribute="centerY" secondItem="84h-2Y-cvF" secondAttribute="centerY" id="0r2-6B-njH"/>
                 <constraint firstItem="VVU-Hn-4x6" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="4iE-fL-A5m"/>
                 <constraint firstItem="84h-2Y-cvF" firstAttribute="centerY" secondItem="VVU-Hn-4x6" secondAttribute="centerY" id="500-nN-FPa"/>
                 <constraint firstItem="gRc-Ud-TvS" firstAttribute="top" secondItem="VVU-Hn-4x6" secondAttribute="bottom" id="EfV-hk-sgQ"/>
+                <constraint firstItem="J0D-j5-hes" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="YGw-JQ-X0M"/>
                 <constraint firstItem="gRc-Ud-TvS" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Yar-rs-dpq"/>
                 <constraint firstItem="VVU-Hn-4x6" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="dOy-d7-JTh"/>
                 <constraint firstItem="gRc-Ud-TvS" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="lYL-q7-uqF"/>
@@ -69,8 +85,15 @@
                 <constraint firstItem="gRc-Ud-TvS" firstAttribute="top" secondItem="VVU-Hn-4x6" secondAttribute="bottom" id="vse-Ur-8It"/>
                 <constraint firstAttribute="bottom" secondItem="gRc-Ud-TvS" secondAttribute="bottom" id="x6T-JX-RWR"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="132" y="133"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

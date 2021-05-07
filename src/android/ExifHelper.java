@@ -20,32 +20,52 @@ package com.cardcam.scantrans;
 
 import android.media.ExifInterface;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExifHelper {
-
-
+    @SerializedName("aperture")
     private String aperture = null;
+    @SerializedName("datetime")
     private String datetime = null;
+    @SerializedName("datetimeOriginal")
     private String datetimeOriginal = null;
+    @SerializedName("exposureTime")
     private String exposureTime = null;
+    @SerializedName("flash")
     private String flash = null;
+    @SerializedName("focalLength")
     private String focalLength = null;
+    @SerializedName("gpsAltitude")
     private String gpsAltitude = null;
+    @SerializedName("gpsAltitudeRef")
     private String gpsAltitudeRef = null;
+    @SerializedName("gpsDateStamp")
     private String gpsDateStamp = null;
+    @SerializedName("gpsLatitude")
     private String gpsLatitude = null;
+    @SerializedName("gpsLatitudeRef")
     private String gpsLatitudeRef = null;
+    @SerializedName("gpsLongitude")
     private String gpsLongitude = null;
+    @SerializedName("gpsLongitudeRef")
     private String gpsLongitudeRef = null;
+    @SerializedName("gpsProcessingMethod")
     private String gpsProcessingMethod = null;
+    @SerializedName("gpsTimestamp")
     private String gpsTimestamp = null;
+    @SerializedName("iso")
     private String iso = null;
+    @SerializedName("make")
     private String make = null;
+    @SerializedName("model")
     private String model = null;
+    @SerializedName("orientation")
     private String orientation = null;
+    @SerializedName("whiteBalance")
     private String whiteBalance = null;
 
 

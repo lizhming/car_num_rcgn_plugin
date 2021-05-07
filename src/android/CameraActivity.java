@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -94,6 +95,8 @@ import android.widget.TextView;
 import android.widget.MediaController;
 import android.widget.RelativeLayout.LayoutParams;
 
+import org.apache.cordova.CordovaPlugin;
+
 
 public class CameraActivity extends Activity implements SurfaceHolder.Callback
 {
@@ -116,6 +119,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     public int 	ImgButtonStatus=0;
     public static String LPRNoti;
     public Button mButtonOK;
+    public Button mButtonRetry;
 
     private SoundManager mSoundManager=null;
 
@@ -334,7 +338,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     public RelativeLayout buttons_Layout,checkboxs_Layout;
 
-    private ImageButton mShutterBtn,mFlashBtn;
+    private ImageButton mShutterBtn,mFlashBtn, mGalleryBtn;
 
     public  RelativeLayout CaptureImgLay=null;
     public  ImageView CaptureImgView=null;
@@ -364,6 +368,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
     // to here -----------------
     WakeLock wakeLock = null;
 
+    public int flashOnOff = 0;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -379,6 +384,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         ((FrameLayout)findViewById(getResources().getIdentifier("viewdraw", "id", getPackageName()))).addView(viewdraw);
 
         mButtonOK = findViewById(getResources().getIdentifier("confirm_btn", "id", getPackageName()));
+        mButtonRetry = findViewById(getResources().getIdentifier("retry_btn", "id", getPackageName()));
 
         hasSurface=0;
 
@@ -392,6 +398,15 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             @Override
             public void onClick(View v) {
                 confirm();
+            }
+        });
+
+        mButtonRetry.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int vId=v.getId();
+
+                mToolButton(vId);
             }
         });
 
@@ -455,6 +470,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     private String  mPathDirectory() {
         String MainDir= Environment.getExternalStorageDirectory().getPath()+"/CarNumRcgn";
+        System.out.println("1 : "+Environment.getExternalStorageDirectory().getPath());
+        System.out.println("2 : "+SaveImage_path);
+        System.out.println("3 : "+Environment.getExternalStorageDirectory().getPath()+SaveImage_path);
         String PathDir1=Environment.getExternalStorageDirectory().getPath()+SaveImage_path;
         String PathDir2=Environment.getExternalStorageDirectory().getPath()+"/CarNumRcgn/imgdata";
         String PathDir3=Environment.getExternalStorageDirectory().getPath()+"/CarNumRcgn/rawdata";
@@ -764,7 +782,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
     private Runnable RunIPPSave = new Runnable() {
         public void run() {
+            Looper.prepare();    // message queue 할당
             IPPSaveFile();
+            Looper.loop();       // message queue 시작
         }
     };
 
@@ -1028,6 +1048,16 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             ImgButtonStatus= 1;
             mHandler.sendEmptyMessage(MSG_LPRImgRcgn);
 
+        } else if (requestCode == 101) {
+            if (resultCode == 100 ) { // canceled
+
+            } else if (resultCode == 101) {
+                String filepath = data.getExtras().getString("data");
+                Intent intent = new Intent();
+                intent.putExtra("data", filepath);
+                setResult(102, intent);
+                finish();
+            }
         }
     }
 
@@ -1458,7 +1488,9 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         if(offsetX==0 && offsetY==0 && event.getAction() == MotionEvent.ACTION_UP && IppStatus<=IPP_PREVIEW)
         {
-            CameraControl.camControl.SetContinuousFocus(false);
+            //20201124 if(false)
+            if(false) CameraControl.camControl.SetContinuousFocus(false);
+
             if (handler != null)
             {
                 CameraControl.camControl.autoFocusMng.autoFocusing = 1;
@@ -1563,6 +1595,10 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             @Override
             public void run() {
                 mButtonOK.setVisibility(View.VISIBLE);
+                mButtonRetry.setVisibility(View.VISIBLE);
+                mShutterBtn.setVisibility(View.INVISIBLE);
+                mGalleryBtn.setVisibility(View.INVISIBLE);
+                mFlashBtn.setVisibility(View.INVISIBLE);
 //                mText_RetryGuide.setVisibility(View.VISIBLE);
             }
         });
@@ -1573,6 +1609,18 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             @Override
             public void run() {
                 mButtonOK.setVisibility(View.INVISIBLE);
+                mButtonRetry.setVisibility(View.INVISIBLE);
+                mShutterBtn.setVisibility(View.VISIBLE);
+                mGalleryBtn.setVisibility(View.VISIBLE);
+                mFlashBtn.setVisibility(View.VISIBLE);
+
+                System.out.println("flashOnOff >> "+flashOnOff);
+                if(flashOnOff == 1){
+                    mHandler.sendEmptyMessage(MSG_TURNON_FLASH);
+                }else{
+                    mHandler.sendEmptyMessage(MSG_TURNOFF_FLASH);
+                }
+                //mHandler.sendEmptyMessage(MSG_TURNON_FLASH);
 //                mText_RetryGuide.setVisibility(View.INVISIBLE);
             }
         });
@@ -1703,7 +1751,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
                 case MSG_TURNON_FLASH:
                     Log.w(TAG, " #MSG_sON# Tch_flashMode= "+ Tch_flashMode);
-
                     if( CameraControl.camControl.previewing) {
                         Log.w(TAG, " #MSG_TURNON# Tch_flashMode= [ON] ");
                         CameraControl.camControl.mCameraFlash(1);
@@ -2309,6 +2356,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
                     mText_RetryGuide.setVisibility(View.INVISIBLE);
 
                     mShutterBtn.setVisibility(View.VISIBLE);
+                    mGalleryBtn.setVisibility(View.VISIBLE);
                     mSaveBtn.setVisibility(View.INVISIBLE);
                     // t_ActiveConPreview = ActiveConPreview = 10;
                     mFlashBtn.setEnabled(true);
@@ -3294,14 +3342,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
 
     OnClickListener mToolClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int vId=v.getId();
+    @Override
+    public void onClick(View v) {
+        int vId=v.getId();
 
 
-            mToolButton(vId);
-        }
-    };
+        mToolButton(vId);
+    }
+};
 
     private CheckBox ChkSave;
     private Button mSaveBtn;
@@ -3313,6 +3361,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         ChkSave.setChecked(true);
 
         mShutterBtn=(ImageButton) findViewById(getResources().getIdentifier("shutter_btn", "id", getPackageName()));
+        mGalleryBtn=(ImageButton) findViewById(getResources().getIdentifier("gallery_button", "id", getPackageName()));
         mFlashBtn=(ImageButton) findViewById(getResources().getIdentifier("flash_btn", "id", getPackageName()));
 
 
@@ -3322,6 +3371,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
         mFlashBtn.setOnClickListener(mToolClickListener);
         mShutterBtn.setOnClickListener(mToolClickListener);
+        mGalleryBtn.setOnClickListener(mToolClickListener);
 
         checkboxs_Layout=(RelativeLayout) findViewById(getResources().getIdentifier("checkBox_lay", "id", getPackageName()));
 //        checkboxs_Layout.setVisibility(View.VISIBLE);
@@ -3336,6 +3386,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
         btnPrevLPR.setOnClickListener(mToolClickListener);
 
         mShutterBtn.setVisibility(View.VISIBLE);
+        mGalleryBtn.setVisibility(View.VISIBLE);
 
 
 //        mText_MsgLay=(RelativeLayout) findViewById(getResources().getIdentifier("text_Msg_lay", "id", getPackageName()));
@@ -3357,7 +3408,6 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
 
     private void mToolButton(int vId) {
-
         if (vId == getResources().getIdentifier("flash_btn", "id", getPackageName())) {
             //nib            case R.id.r_flash_btn:
             if (canFlash == 0) return;
@@ -3382,6 +3432,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
                     Log.w(TAG, " #btn03# Tch_flashMode= [ON] ");
                     CameraControl.camControl.mCameraFlash(1);
                     FlashBtn_OnOff(true);
+                    flashOnOff = 1;
                 } else {
                     mHandler.sendEmptyMessage(MSG_TURNON_FLASH);
                 }
@@ -3395,6 +3446,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
                 CameraControl.camControl.mCameraFlash(0);
                 FlashBtn_OnOff(false);
+                flashOnOff = 0;
             }
 
         }else if (vId == getResources().getIdentifier("savebtn", "id", getPackageName())) {
@@ -3407,8 +3459,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
 
                 handler.sendEmptyMessageDelayed(getResources().getIdentifier("auto_focus", "id", getPackageName()), 500);
             }
-        } else if (vId == getResources().getIdentifier("shutter_btn", "id", getPackageName()))
-        {  //mCameraBtn
+        } else if (vId == getResources().getIdentifier("shutter_btn", "id", getPackageName())) {  //mCameraBtn
             AutoLPR = false;
             if (ImgButtonStatus > 0 && OnCapture_status == CAPTURE_GotImage) {
                 SetCam_Preview();
@@ -3422,9 +3473,14 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
                 CameraControl.camControl.autoFocusMng.autoFocusing = 0;
                 //handler.sendEmptyMessageDelayed(R.id.auto_focus,500);
             }
-            cHandler.sendEmptyMessageDelayed(MSG_FOCUS_TRUE, 2000);
-            mHandler.sendEmptyMessageDelayed(MSG_ReqCaptureFrame, 1000);
-        }else if (vId == getResources().getIdentifier("AutoTestLPR", "id", getPackageName())) {
+            cHandler.sendEmptyMessageDelayed(MSG_FOCUS_TRUE, 0);
+            mHandler.sendEmptyMessageDelayed(MSG_ReqCaptureFrame, 0);
+        }else if (vId == getResources().getIdentifier("gallery_button", "id", getPackageName())) {
+
+            Intent intent = new Intent(this, com.cardcam.scantrans.GalleryActivity.class);
+            this.startActivityForResult(intent, 101);
+        }
+        else if (vId == getResources().getIdentifier("AutoTestLPR", "id", getPackageName())) {
             ImgButtonStatus = 1;
             AutoLPR = true;
             mHandler.sendEmptyMessage(MSG_STEPLPR);
@@ -3441,6 +3497,12 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
                 AutoLPR=false;
                 ImgButtonStatus=1;
                 mHandler.sendEmptyMessage(MSG_STEPLPR);
+        }else if (vId == getResources().getIdentifier("retry_btn", "id", getPackageName())) {
+            AutoLPR = false;
+            mHandler.removeMessages(MSG_STEPLPR);
+            ImgButtonStatus = 0;
+            SetCam_Preview();
+            Retry_GuideOff();
         }
     }
 
@@ -3759,6 +3821,7 @@ public class CameraActivity extends Activity implements SurfaceHolder.Callback
             FileOutputStream out = new FileOutputStream(wcard+SaveImage_path+filename);
             fileName = wcard+SaveImage_path+filename;
             //tmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+            if(img==null || img.isRecycled()) return;
             img.compress(Bitmap.CompressFormat.JPEG, 100, out);
         }
         catch (FileNotFoundException e)  {

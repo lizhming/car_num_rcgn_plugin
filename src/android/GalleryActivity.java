@@ -2,6 +2,8 @@ package com.cardcam.scantrans;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Environment;
@@ -18,13 +20,22 @@ import android.widget.GridView;
 // import com.cardcam.lprdemo.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import kr.go.seoul.seoulSmartReport.R;
+public class GalleryActivity extends AppCompatActivity implements GalleryAdapter.ItemClickListener {
 
-public class GalleryActivity extends AppCompatActivity {
+    public class Item {
+        String path;
+        boolean checked;
+    }
 
-    String[] path;
+//    String[] path;
+//    boolean[] checked;
+    List<Item> arrFile = new ArrayList<>();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -42,7 +53,7 @@ public class GalleryActivity extends AppCompatActivity {
             }
         }
     }
-
+    GalleryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +71,48 @@ public class GalleryActivity extends AppCompatActivity {
                 intent.putExtra("data", "");
                 setResult(100, intent);
                 finish();
+            }
+        });
+        Button deleteBtn = findViewById(getResources().getIdentifier("buttonDelete", "id", getPackageName()));
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean selected= false;
+                for (int i = arrFile.size(); i > 0; i --) {
+                    if (arrFile.get(i-1).checked) {
+                        selected = true;
+                    }
+                }
+                if (!selected) return;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(GalleryActivity.this);
+                builder.setMessage("정말 삭제하시겠습니까?")
+                        .setCancelable(true)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                for (int i = arrFile.size(); i > 0; i --) {
+                                    if (arrFile.get(i-1).checked) {
+                                        try {
+                                            new File(arrFile.get(i - 1).path).delete();
+                                        } catch (Exception e) {}
+                                        arrFile.remove(i-1);
+                                    }
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.setTitle("선택 삭제");
+                alert.show();
+
             }
         });
 
@@ -91,17 +144,30 @@ public class GalleryActivity extends AppCompatActivity {
         if (files == null) {
             files = new File[0];
         }
-        this.path = new String[files.length];
+//        this.arrFile = new Item[files.length];
+//        this.path = new String[files.length];
+//        this.checked = new boolean[files.length];
         Log.d("Files", "Size: "+ files.length);
         for (int i = 0; i < files.length; i++)
         {
             Log.d("Files", "FileName:" + files[i].getName());
-            this.path[i] = files[i].getAbsolutePath();
+//            this.path[i] = files[i].getAbsolutePath();
+//            this.checked[i] = false;
+//            this.arrFile[i].path = files[i].getAbsolutePath();
+//            this.arrFile[i].checked = false;
+            this.arrFile.add(new Item());
+            this.arrFile.get(this.arrFile.size() - 1).path = files[i].getAbsolutePath();
+            this.arrFile.get(this.arrFile.size() - 1).checked = false;
         }
-        Arrays.sort(this.path);
+//        Arrays.sort(this.path, Collections.reverseOrder());
+//        Arrays.sort(this.arrFile, Collections.reverseOrder());
+        Collections.reverse(arrFile);
 
         GridView gridView = findViewById(getResources().getIdentifier("gridView", "id", getPackageName()));
-        GalleryAdapter adapter = new GalleryAdapter(this, this.path);
+        adapter = new GalleryAdapter(this, this.arrFile, this); // this.path, this.checked);
+
+
+
         gridView.setAdapter(adapter);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,10 +176,18 @@ public class GalleryActivity extends AppCompatActivity {
                 //
 
                 Intent intent = new Intent();
-                intent.putExtra("data", GalleryActivity.this.path[position]);
+                intent.putExtra("data", GalleryActivity.this.arrFile.get(position).path);
                 setResult(101, intent);
                 finish();
             }
         });
     }
+    @Override
+    public void onClickItem(int position) {
+        Intent intent = new Intent();
+        intent.putExtra("data", GalleryActivity.this.arrFile.get(position).path);
+        setResult(101, intent);
+        finish();
+    }
+
 }

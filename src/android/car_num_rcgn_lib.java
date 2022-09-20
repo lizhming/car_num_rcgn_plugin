@@ -195,6 +195,9 @@ public class car_num_rcgn_lib extends CordovaPlugin {
                     e.printStackTrace();
                     callbackContext.error("canceled");
                 }
+            } else if (resultCode == 102) {
+                String filepath = intent.getExtras().getString("data");
+                exifResult(filepath);
             }
             else {
                 callbackContext.error("canceled");

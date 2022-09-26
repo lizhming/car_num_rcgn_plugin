@@ -1,63 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     android:theme="@style/Theme.AppCompat"
-    tools:context="com.cardcam.scantrans.GalleryActivity">
-
-    <FrameLayout
+    tools:context="com.cardcam.scantrans.GalleryActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#fff">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:theme="@style/Theme.AppCompat"
+        tools:context="com.cardcam.scantrans.GalleryActivity">
 
-        <Button
-            android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="start"
-            android:background="#00000000"
-            android:textColor="#000"
-            android:text="삭제"/>
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:background="#00000000"
-            android:textColor="#000"
-            android:text="취소"/>
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="갤러리"
-            android:textSize="14dp"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:paddingLeft="0dp"
-            android:gravity="center"/>
-    </FrameLayout>
+            android:layout_height="50dp"
+            android:background="#fff">
 
-    <FrameLayout
+            <Button
+                android:id="@+id/buttonSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_gravity="start"
+                android:background="#00000000"
+                android:textColor="#000"
+                android:text="전체선택"/>
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="60dp"
+                android:background="#00000000"
+                android:textColor="#000"
+                android:text="삭제"/>
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:background="#00000000"
+                android:textColor="#000"
+                android:text="취소"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="갤러리"
+                android:textSize="14dp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:paddingLeft="0dp"
+                android:gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_margin="0dp">
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="3"/>
+            <TextView
+                android:id="@+id/text_noresult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="12dp"
+                android:textColor="#3d3d3d"
+                android:text="이미지가 없습니다."
+                android:visibility="invisible"/>
+        </FrameLayout>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/layoutPreview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="0dp">
-        <GridView
-            android:id="@+id/gridView"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:id="@+id/layoutPreviewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#fff">
+
+            <TextView
+                android:id="@+id/textPictureDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="촬영일시:"
+                android:textSize="14dp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"
+                android:gravity="start|center"/>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/preview_view"
+            android:background="#000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="3"/>
-        <TextView
-            android:id="@+id/text_noresult"
+            android:layout_below="@id/layoutPreviewTitle">
+
+            <RelativeLayout
+                android:id="@+id/imgView_Lay"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    android:id="@+id/imgView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+        </FrameLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="12dp"
-            android:textColor="#3d3d3d"
-            android:text="이미지가 없습니다."
-            android:visibility="invisible"/>
-    </FrameLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/confirm_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="사용"
+                android:background="#eee"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginRight="20dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentRight="true"/>
+
+            <Button
+                android:id="@+id/retry_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="취소"
+                android:background="#eee"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginLeft="20dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentLeft="true"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

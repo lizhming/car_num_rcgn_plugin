@@ -87,14 +87,14 @@ public class GalleryAdapter extends BaseAdapter {
             }
         });
 
-        ExifInterface exif = null;
-
-        try {
-            exif = new ExifInterface(array.get(position).path);
-            textView.setText(exif.getAttribute(ExifInterface.TAG_DATETIME));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        textView.setText(array.get(position).date);
+//        ExifInterface exif = null;
+//        try {
+//            exif = new ExifInterface(array.get(position).path);
+//            textView.setText(exif.getAttribute(ExifInterface.TAG_DATETIME));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 //        imageView.setImageURI(Uri.fromFile(new File(array[position])));
         Glide.with(context).load(Uri.fromFile(new File(array.get(position).path))).into(imageView);

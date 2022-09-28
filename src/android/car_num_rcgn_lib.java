@@ -11,8 +11,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.content.Intent;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.util.Log;
+
+import androidx.core.content.FileProvider;
 
 import org.apache.cordova.BuildHelper;
 import org.apache.cordova.CordovaInterface;
@@ -46,6 +46,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+
+import kr.go.seoul.seoulSmartReport.MyGlobals;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -100,8 +102,14 @@ public class car_num_rcgn_lib extends CordovaPlugin {
         } else if (action.equals("show_gallery")) {
             this.show_gallery(callbackContext);
             return true;
+        } else if (action.equals("show_gallery_tmp")) {
+            this.show_gallery_tmp(callbackContext);
+            return true;
         } else if (action.equals("open_camera")) {
             this.open_camera(callbackContext);
+            return true;
+        } else if (action.equals("open_camera_tmp")) {
+            this.open_camera_tmp(callbackContext);
             return true;
         }
         return false;
@@ -655,12 +663,28 @@ public class car_num_rcgn_lib extends CordovaPlugin {
         this.callbackContext.success(jsonResult);
     }
     private void show_gallery(CallbackContext callbackContext) {
+        MyGlobals.getInstance().setData("Y");
+        this.callbackContext = callbackContext;
+        Intent intent = new Intent(cordova.getActivity(), com.cardcam.scantrans.GalleryActivity.class);
+        this.cordova.startActivityForResult((CordovaPlugin) this,
+                intent, 100);
+    }
+    private void show_gallery_tmp(CallbackContext callbackContext) {
+        MyGlobals.getInstance().setData("N");
         this.callbackContext = callbackContext;
         Intent intent = new Intent(cordova.getActivity(), com.cardcam.scantrans.GalleryActivity.class);
         this.cordova.startActivityForResult((CordovaPlugin) this,
                 intent, 100);
     }
     private void open_camera(CallbackContext callbackContext) {
+        MyGlobals.getInstance().setData("Y");
+        this.callbackContext = callbackContext;
+        Intent intent = new Intent(cordova.getActivity(), com.cardcam.scantrans.CameraActivity.class);
+        this.cordova.startActivityForResult((CordovaPlugin) this,
+                intent, 101);
+    }
+    private void open_camera_tmp(CallbackContext callbackContext) {
+        MyGlobals.getInstance().setData("N");
         this.callbackContext = callbackContext;
         Intent intent = new Intent(cordova.getActivity(), com.cardcam.scantrans.CameraActivity.class);
         this.cordova.startActivityForResult((CordovaPlugin) this,

@@ -34,6 +34,7 @@ import com.cardcam.carnum.CarNumRcgn;
 import com.cardcam.scantrans.CordovaLocationServices;
 import com.cardcam.scantrans.CordovaUri;
 import com.cardcam.scantrans.ExifHelper;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -702,7 +703,9 @@ public class car_num_rcgn_lib extends CordovaPlugin {
             }
             try {
                 InputStream is = new FileInputStream(src);
-                OutputStream os = new FileOutputStream(path + "/" + (new Date().getTime()) + ".jpg");
+                File fileImage = new File(path + "/" + (new Date().getTime()) + ".jpg");
+                fileImage.createNewFile();
+                OutputStream os = new FileOutputStream(fileImage);
                 byte[] buff = new byte[1024];
                 int len;
                 while ((len = is.read(buff)) > 0) {
@@ -711,7 +714,8 @@ public class car_num_rcgn_lib extends CordovaPlugin {
                 is.close();
                 os.close();
             }catch(Exception e) {
-
+//                throw new Exception("File Save Error");
+                FirebaseCrashlytics.getInstance().recordException(e);
             }
         }
         return true;

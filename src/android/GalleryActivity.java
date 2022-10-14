@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,11 +21,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 // import com.cardcam.lprdemo.R;
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -72,6 +76,14 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
 
         setContentView(getResources().getIdentifier("activity_gallery", "layout", getPackageName())) ;//R.layout.activity_gallery);
 
+        ImageButton closeButton = findViewById(getResources().getIdentifier("buttonClose", "id", getPackageName()));
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RelativeLayout layout = findViewById(getResources().getIdentifier("layoutPreview", "id", getPackageName()));
+                layout.setVisibility(View.GONE);
+            }
+        });
         Button cancel = findViewById(getResources().getIdentifier("buttonCancel", "id", getPackageName()));
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +109,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                 for (int i = arrFile.size(); i > 0; i --) {
                     arrFile.get(i-1).checked = checked;
                 }
-                adapter.notifyDataSetChanged();
+                if (adapter != null)
+                    adapter.notifyDataSetChanged();
             }
         });
 
@@ -128,7 +141,8 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
                                         arrFile.remove(i-1);
                                     }
                                 }
-                                adapter.notifyDataSetChanged();
+                                if (adapter != null)
+                                    adapter.notifyDataSetChanged();
                             }
                         })
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -166,7 +180,9 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
         if(ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
             //ask for permission
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+            }
             return;
         }
 
@@ -246,19 +262,24 @@ public class GalleryActivity extends AppCompatActivity implements GalleryAdapter
 
     }
     @Override
-    public void onClickItem(int position) {
+    public void onClickItem(int position, int type) {
+        if (type == 0) {
+            Intent intent = new Intent();
+            intent.putExtra("data", GalleryActivity.this.arrFile.get(position).path);
+            setResult(101, intent);
+            finish();
+            return;
+        }
         currentPosition = position;
         RelativeLayout layout = findViewById(getResources().getIdentifier("layoutPreview", "id", getPackageName()));
+        layout.setVisibility(View.VISIBLE);
         ImageView imgView = findViewById(getResources().getIdentifier("imgView", "id", getPackageName()));
         imgView.setImageURI(Uri.parse(GalleryActivity.this.arrFile.get(position).path));
-        layout.setVisibility(View.VISIBLE);
+
+//        Glide.with(this).load(Uri.parse(GalleryActivity.this.arrFile.get(position).path)).into(imgView);
+
         TextView textView = findViewById(getResources().getIdentifier("textPictureDate", "id", getPackageName()));
         textView.setText("촬영일시: " + arrFile.get(position).date);
-
-//        Intent intent = new Intent();
-//        intent.putExtra("data", GalleryActivity.this.arrFile.get(position).path);
-//        setResult(101, intent);
-//        finish();
     }
 
     @Override

@@ -45,6 +45,8 @@
         <source-file src="src/android/qtranslator.ogg" target-dir="res/raw" />
         <source-file src="src/android/v8/libLPRPro.so" target-dir="jniLibs/arm64-v8a" />
         <source-file src="src/android/v7/libLPRPro.so" target-dir="jniLibs/armeabi-v7a" />
+        <source-file src="src/android/btn_close.png" target-dir="res/drawable" />
+        <source-file src="src/android/btn_preview.png" target-dir="res/drawable" />
 
         <source-file src="src/android/layout_gallery.xml" target-dir="res/layout" />
         <source-file src="src/android/activity_gallery.xml" target-dir="res/layout" />
@@ -119,6 +121,8 @@
         <source-file src="src/ios/CarGalleryViewController.m" />
         <source-file src="src/ios/CarGalleryViewController.xib" />
         <source-file src="src/ios/GalleryCell.xib" />
+        <source-file src="src/ios/btn_close.png" />
+        <source-file src="src/ios/btn_preview.png" />
 
         <framework src="src/ios/libLPRpro.framework" embed="true" custom="true"/>
         <!-- <source-file src="src/ios/libLPRpro.framework" target-dir="lib" framework="true"/> -->

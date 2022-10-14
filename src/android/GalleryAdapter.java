@@ -18,33 +18,17 @@ import java.util.List;
 
 public class GalleryAdapter extends BaseAdapter {
     public interface ItemClickListener {
-        public void onClickItem(int position);
+        public void onClickItem(int position, int type);
     }
     Context context;
     LayoutInflater inflater;
     ItemClickListener listener;
-//    String[] array;
-//    boolean[] checked;
-//    GalleryActivity.Item[] array;
     List<GalleryActivity.Item> array;
-//    public GalleryAdapter(Context c, String[] path, boolean[] checked) {
-//        context = c;
-//        array = path;
-//        this.checked = checked;
-//    }
-//    public GalleryAdapter(Context c, GalleryActivity.Item[] arr) {
-//        context = c;
-//        array = arr;
-//    }
     public GalleryAdapter(Context c, List<GalleryActivity.Item> arr, ItemClickListener listener) {
         context = c;
         array = arr;
         this.listener = listener;
     }
-//    public void updateData(String[] path, boolean[] checked) {
-//        this.array = path;
-//        this.checked = checked;
-//    }
     @Override
     public int getCount() {
         return array.size();
@@ -69,13 +53,14 @@ public class GalleryAdapter extends BaseAdapter {
             convertView = inflater.inflate(context.getResources().getIdentifier("layout_gallery", "layout", context.getPackageName()), null);
         }
         ImageView imageView = convertView.findViewById(context.getResources().getIdentifier("imageView", "id", context.getPackageName()));
+        ImageView imagePreview = convertView.findViewById(context.getResources().getIdentifier("imgPreview", "id", context.getPackageName()));
         TextView textView = convertView.findViewById(context.getResources().getIdentifier("textDate", "id", context.getPackageName()));
         CheckBox checkBox = convertView.findViewById(context.getResources().getIdentifier("checkbox", "id", context.getPackageName()));
         checkBox.setChecked(array.get(position).checked);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClickItem(position);
+                listener.onClickItem(position, 0);
             }
         });
 
@@ -84,6 +69,12 @@ public class GalleryAdapter extends BaseAdapter {
             public void onClick(View v) {
                 array.get(position).checked = checkBox.isChecked();
 //                checked[position] = !checked[position];
+            }
+        });
+        imagePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClickItem(position, 1);
             }
         });
 
